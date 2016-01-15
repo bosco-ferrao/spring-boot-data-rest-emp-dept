@@ -1,0 +1,110 @@
+[[spring-boot-data-rest]]
+
+Spring Boot Data REST CRUD example
+
+1. For following GET http://localhost:8080/api/employees
+----
+$ curl localhost:8080/api/employees
+{
+  "_embedded" : {
+    "employees" : [ {
+      "firstName" : "Barry",
+      "lastName" : "Lamb",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/employees/1"
+        },
+        "employee" : {
+          "href" : "http://localhost:8080/api/employees/1"
+        },
+        "department" : {
+          "href" : "http://localhost:8080/api/employees/1/department"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/employees"
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/api/profile/employees"
+    }
+  }
+}
+----
+
+2.1 For following GET http://localhost:8080/api/employees/1
+----
+$ curl localhost:8080/api/employees/1
+{
+  "firstName" : "Barry",
+  "lastName" : "Lamb",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/employees/1"
+    },
+    "employee" : {
+      "href" : "http://localhost:8080/api/employees/1"
+    },
+    "department" : {
+      "href" : "http://localhost:8080/api/employees/1/department"
+    }
+  }
+}
+----
+
+2.2 For following GET http://localhost:8080/api/employees/1/department
+----
+$ curl localhost:8080/api/employees/1
+{
+  "firstName" : "Barry",
+  "lastName" : "Lamb",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/employees/1"
+    },
+    "employee" : {
+      "href" : "http://localhost:8080/api/employees/1"
+    },
+    "department" : {
+      "href" : "http://localhost:8080/api/employees/1/department"
+    }
+  }
+}
+----
+
+3.1 For Create 2nd Employee following POST
+----
+$ curl -X POST localhost:8080/api/employees -d '{}' -H 'Content-Type:application/json'
+{
+  "firstName" : null,
+  "lastName" : null,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/employees/2"
+    }
+  }
+}
+----
+
+3.2 
+$ curl -X PUT localhost:8080/api/employees/2 -d '{"firstName": "Bos1", "lastName": "Fer1", "department" : {"id": "1", "name" : "Engineering"}}' -H 'Content-Type:application/json'
+{
+      "firstName" : "Bos1",
+      "lastName" : "Fer1",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/employees/2"
+        },
+        "employee" : {
+          "href" : "http://localhost:8080/api/employees/2"
+        },
+        "department" : {
+          "href" : "http://localhost:8080/api/employees/3/department"
+        }
+      }
+    } 
+----
+
+You can also PATCH, and DELETE as shown in https://spring.io/guides/gs/accessing-data-rest/
